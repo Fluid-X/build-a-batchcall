@@ -1,0 +1,26 @@
+.helperBar {
+	max-height: calc(100vh - 64px);
+	overflow: scroll;
+}
+
+.item {
+	padding: 8px;
+	margin: 16px 8px;
+	border-radius: 4px;
+	box-shadow: 2px 2px 2px #00000088;
+	font-size: 0.8em;
+}
+
+.row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-family: sans-serif;
+	margin-top: 16px;
+}
+
+.title {
+	margin: 16px 8px;
+	color: #0ce1f2;
+	border-bottom: 2px solid #0ce1f2;
+}

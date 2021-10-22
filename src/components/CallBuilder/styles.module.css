@@ -1,0 +1,27 @@
+.container {
+	padding: 8px;
+	margin: 16px 4px;
+	transition: border 0.2s;
+	border-radius: 4px;
+	box-shadow: 2px 2px 2px #00000088;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.buttonContainer {
+	border-left: 1px solid #888;
+	padding-left: 8px;
+}
+
+.subText {
+	font-size: 0.8em;
+}
+
+.warning {
+	color: #e6c90b;
+	font-size: 0.8em;
+}

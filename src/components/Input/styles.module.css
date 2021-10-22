@@ -1,0 +1,43 @@
+.group {
+	display: flex;
+	flex-direction: column;
+	margin: 8px 0;
+}
+
+.input {
+	background: transparent;
+	border-radius: 2px;
+	border: 1px solid #888;
+	transition: border 0.2s;
+	color: #f0f0f0;
+	padding: 4px;
+}
+
+.input:focus {
+	outline: none;
+	border: 1px solid #00e676;
+}
+
+.submit {
+	background: #00e676;
+	border-radius: 2px;
+	border: none;
+	transition: border 0.2s;
+	color: #161322;
+	padding: 4px;
+	margin: 8px 0;
+	transition: background-color 0.2s;
+}
+
+.submit:active {
+	background-color: #0ce1f2;
+}
+
+.submit:focus {
+	outline: none;
+}
+
+.error {
+	color: #ff8c96;
+	font-size: 0.8em;
+}

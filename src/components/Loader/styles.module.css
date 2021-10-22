@@ -1,0 +1,36 @@
+.loader {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.container {
+	width: 148px;
+	height: 148px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.text {
+	margin: 32px;
+}
+
+.svg {
+	animation: pulse 2s linear infinite;
+}
+
+@keyframes pulse {
+	0% {
+		width: 128px;
+	}
+	50% {
+		width: 148px;
+	}
+	100% {
+		width: 128px;
+	}
+}

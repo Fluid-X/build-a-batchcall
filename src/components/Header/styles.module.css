@@ -1,0 +1,15 @@
+.header {
+	height: 64px;
+	display: flex;
+	align-items: center;
+	padding-left: 8px;
+	border-bottom: 2px solid #00000088;
+	box-sizing: border-box;
+}
+
+.titleDivider {
+	width: 2px;
+	height: 32px;
+	margin: 0 16px;
+	background: #fff;
+}

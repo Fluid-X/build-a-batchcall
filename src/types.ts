@@ -1,3 +1,36 @@
+// Helpers
+export enum CallByteSize {
+	BASE = 68,
+	ERC20_APPROVE = 224,
+	ERC20_TRANSFER_FROM = 256,
+	SUPERTOKEN_UPGRADE = 192,
+	SUPERTOKEN_DOWNGRADE = 192,
+	CREATE_FLOW = 548,
+	UPDATE_FLOW = 548,
+	DELETE_FLOW = 548,
+	CREATE_INDEX = 516,
+	UPDATE_INDEX = 548,
+	DISTRIBUTE = 548,
+	UPDATE_SUBSCRIPTION = 580,
+	APPROVE_SUBSCRIPTION = 548,
+	REVOKE_SUBSCRIPTION = 548,
+	DELETE_SUBSCRIPTION = 580,
+	CLAIM = 580,
+	MAX = 130884
+}
+
+export type ChainId = '0x5' | '0x89'
+
+export interface NetworkAddresses {
+	resolver: string
+	host: string
+	cfaV1: string
+	idaV1: string
+	superTokenFactory: string
+	superfluidLoaderV1: string
+}
+
+// Calls
 export enum CallCode {
 	ERC20_APPROVE = 1,
 	ERC20_TRANSFER_FROM = 2,
@@ -26,24 +59,14 @@ export enum Method {
 	CLAIM = 'claim'
 }
 
-export enum Bytes {
-	BASE = 68,
-	ERC20_APPROVE = 224,
-	ERC20_TRANSFER_FROM = 0,
-	SUPERTOKEN_UPGRADE = 0,
-	SUPERTOKEN_DOWNGRADE = 0,
-	SUPERFLUID_CALL_AGREEMENT = 0,
-	CALL_APP_ACTION = 0
-}
-
-interface Erc20Approve {
+export interface Erc20Approve {
 	code: CallCode.ERC20_APPROVE
 	token: string
 	spender: string
 	amount: string
 }
 
-interface Erc20TransferFrom {
+export interface Erc20TransferFrom {
 	code: CallCode.ERC20_TRANSFER_FROM
 	token: string
 	sender: string
@@ -51,19 +74,19 @@ interface Erc20TransferFrom {
 	amount: string
 }
 
-interface SuperTokenUpgrade {
+export interface SuperTokenUpgrade {
 	code: CallCode.SUPERTOKEN_UPGRADE
 	token: string
 	amount: string
 }
 
-interface SuperTokenDowngrade {
+export interface SuperTokenDowngrade {
 	code: CallCode.SUPERTOKEN_DOWNGRADE
 	token: string
 	amount: string
 }
 
-interface CreateFlow {
+export interface CreateFlow {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.CREATE_FLOW
 	token: string
@@ -73,7 +96,7 @@ interface CreateFlow {
 	userData: string
 }
 
-interface UpdateFlow {
+export interface UpdateFlow {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.UPDATE_FLOW
 	token: string
@@ -83,17 +106,17 @@ interface UpdateFlow {
 	userData: string
 }
 
-interface DeleteFlow {
+export interface DeleteFlow {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.DELETE_FLOW
 	token: string
+	sender: string
 	receiver: string
-	flowRate: string
 	ctx: string
 	userData: string
 }
 
-interface CreateIndex {
+export interface CreateIndex {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.CREATE_INDEX
 	token: string
@@ -102,7 +125,7 @@ interface CreateIndex {
 	userData: string
 }
 
-interface UpdateIndex {
+export interface UpdateIndex {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.UPDATE_INDEX
 	token: string
@@ -112,7 +135,7 @@ interface UpdateIndex {
 	userData: string
 }
 
-interface Distribute {
+export interface Distribute {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.DISTRIBUTE
 	token: string
@@ -122,7 +145,7 @@ interface Distribute {
 	userData: string
 }
 
-interface UpdateSubscription {
+export interface UpdateSubscription {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.UPDATE_SUBSCRIPTION
 	token: string
@@ -133,7 +156,7 @@ interface UpdateSubscription {
 	userData: string
 }
 
-interface ApproveSubscription {
+export interface ApproveSubscription {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.APPROVE_SUBSCRIPTION
 	token: string
@@ -143,7 +166,7 @@ interface ApproveSubscription {
 	userData: string
 }
 
-interface RevokeSubscription {
+export interface RevokeSubscription {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.REVOKE_SUBSCRIPTION
 	token: string
@@ -153,17 +176,18 @@ interface RevokeSubscription {
 	userData: string
 }
 
-interface DeleteSubscription {
+export interface DeleteSubscription {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.DELETE_SUBSCRIPTION
 	token: string
 	publisher: string
+	subscriber: string
 	indexId: string
 	ctx: string
 	userData: string
 }
 
-interface Claim {
+export interface Claim {
 	code: CallCode.SUPERFLUID_CALL_AGREEMENT
 	method: Method.CLAIM
 	token: string
@@ -190,3 +214,17 @@ export type Call =
 	| RevokeSubscription
 	| DeleteSubscription
 	| Claim
+
+// Subgraph Token Statistics
+export interface Token {
+	id: string
+	name: string
+	symbol: string
+	underlyingAddress: string
+}
+
+export interface TokenStatistic {
+	totalOutflowRate: string
+	totalSupply: string
+	token: Token
+}

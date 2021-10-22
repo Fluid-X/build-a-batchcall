@@ -1,0 +1,11 @@
+.sidebar {
+	max-height: calc(100vh - 64px);
+	overflow: scroll;
+	width: 350px;
+}
+
+.title {
+	margin: 16px 8px;
+	color: #0ce1f2;
+	border-bottom: 2px solid #0ce1f2;
+}
