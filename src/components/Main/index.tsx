@@ -95,13 +95,31 @@ export default function Main({
 						className={styles.innerBar}
 						style={{
 							background: theme.primary,
-							width: (byteEstimation / CallByteSize.MAX) * 500
+							width:
+								byteEstimation > CallByteSize.MAX
+									? 500
+									: (byteEstimation / CallByteSize.MAX) * 500
 						}}
 					/>
 				</div>
 				<p className={styles.stat}>
 					{byteEstimation}/{CallByteSize.MAX} bytes used
 				</p>
+				{byteEstimation > CallByteSize.MAX ? (
+					<div style={{ marginTop: 8 }}>
+						<p style={{ color: theme.warning }}>
+							Batch Call may exceed byte limit for your RPC
+							endpoint!
+						</p>
+						<p style={{ color: theme.warning }}>
+							This is not a guarantee, so you're free to try this.
+						</p>
+						<p style={{ color: theme.warning }}>
+							If this call does work, please contact jtriley.eth
+							with the tx hash!
+						</p>
+					</div>
+				) : null}
 				{calls.length > 0 ? (
 					<div>
 						<ul className={styles.list}>{calls.map(renderCall)}</ul>

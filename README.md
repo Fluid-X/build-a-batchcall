@@ -1,46 +1,92 @@
-# Getting Started with Create React App
+# Build a BatchCall
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Superfluid introduces many novel functionalities including token streaming and
+instant distribution to massive numbers of addresses. A less-known innovation is
+the 'batch call'. Batch calls allow end users to batch massive amounts of Super
+Token, Super App, and Superfluid Agreement calls into a single transaction.
 
-## Available Scripts
+For newcomers, this can be difficult to pull off with the JS-SDK. This web app
+seeks to make the process of building and encoding batch calls straight forward.
 
-In the project directory, you can run:
+This is part of a greater effort to optimize the user experience in the
+Superfluid ecosystem.
 
-### `yarn start`
+## Interesting Things About Batch Calls
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+At the time of writing, it seems the limit of the batch calls is not in gas, as
+Matic and Goerli have crazy high gas limits, but instead in the input size limit
+for RPC endpoints.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Online sources have mentioned varying RPC sizes, so this is only speculation on
+the actual limits of batch calls. The setup used to test the following was via
+Metamask with the standard Goerli config.
 
-### `yarn test`
+To date, my biggest successful batch call was `584 ERC20_APPROVE` operations.
+Lol.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+From what I gather, the byte limit is between `130,884` and `131,108`. The base
+byte size is `68` bytes, and here are the sizes of standard calls:
 
-### `yarn build`
+| Call                 | Byte Size |
+| -------------------- | --------- |
+| BASE                 | 68        |
+| ERC20_APPROVE        | 224       |
+| ERC20_TRANSFER_FROM  | 256       |
+| SUPERTOKEN_UPGRADE   | 192       |
+| SUPERTOKEN_DOWNGRADE | 192       |
+| CREATE_FLOW          | 548       |
+| UPDATE_FLOW          | 548       |
+| DELETE_FLOW          | 548       |
+| CREATE_INDEX         | 516       |
+| UPDATE_INDEX         | 548       |
+| DISTRIBUTE           | 548       |
+| UPDATE_SUBSCRIPTION  | 580       |
+| APPROVE_SUBSCRIPTION | 548       |
+| REVOKE_SUBSCRIPTION  | 548       |
+| DELETE_SUBSCRIPTION  | 580       |
+| CLAIM                | 580       |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If you batched, for example, a CLAIM and CREATE_FLOW, your estimated byte size
+would be:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+SIZE = BASE + CLAIM + CREATE_FLOW
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1196 = 68 + 580 + 548
+```
 
-### `yarn eject`
+## Limitations / Issues
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+As of now, this only supports Goerli and Matic networks, but the full release
+will have support for more networks.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Custom Super App Calls are not supported at this time, as gas and byte size
+cannot be estimated.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The `ERC20_APPROVE` and `ERC20_TRANSFER_FROM` methods can ONLY be batched on
+Super Tokens. If you want to batch `SUPERTOKEN_UPGRADE` from DAI to DAIx, for
+example, you will need to Approve DAI to the DAIx contract address externally.
+Unbatchable approvals on non-supertokens are unavoidable, but support for these
+contract calls will likely be included in a future release.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Scripts
 
-## Learn More
+As per the usual `create-react-app` scripts:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Once you clone this repo:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+yarn
+```
+
+To start:
+
+```bash
+yarn start
+```
+
+To build it:
+
+```bash
+yarn build
+```
