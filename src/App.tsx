@@ -17,6 +17,7 @@ export default function App() {
 	const initialize = async () => {
 		try {
 			const windowWeb3 = window as any
+			await windowWeb3.ethereum.enable()
 			const chainId = await windowWeb3.ethereum.request({
 				method: 'eth_chainId'
 			})
