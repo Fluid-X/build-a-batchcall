@@ -2,9 +2,15 @@
 	height: 64px;
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	padding-left: 8px;
 	border-bottom: 2px solid #00000088;
 	box-sizing: border-box;
+}
+
+.titleContainer {
+	display: flex;
+	align-items: center;
 }
 
 .titleDivider {
@@ -12,4 +18,14 @@
 	height: 32px;
 	margin: 0 16px;
 	background: #fff;
+}
+
+.link {
+	color: #f0f0f0;
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-right: 32px;
 }
