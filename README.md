@@ -90,3 +90,13 @@ To build it:
 ```bash
 yarn build
 ```
+
+---
+
+## REPORTED ISSUES / SUGGESTIONS
+
+- Improve token listings, add option to *only* show listed tokens
+- Remove ctx from advanced options
+- improve error handling for no window.ethereum presence
+- only request account on batch call submission
+- copy/paste button for raw JSON
